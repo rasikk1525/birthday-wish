@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂</title>
+    <style>
+        /* Global Resets & Page Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            color: #fff;
+            overflow: hidden; /* Hides confetti outside the page */
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Confetti Container (JS will add confetti here) */
+        #confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Lets clicks pass through confetti */
+        }
+
+        /* Birthday Heading Animation (Pulse + Slide Up) */
+        .birthday-heading {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            animation: pulse 2s infinite alternate, slideUp 1s ease-out;
+        }
+
+        /* Custom Name Styling (Bigger & Highlighted) */
+        .name {
+            color: #ff6b6b;
+            text-decoration: underline;
+            text-underline-offset: 8px;
+        }
+
+        /* Wish Message Styling (Fade In) */
+        .wish-message {
+            font-size: 1.8rem;
+            margin: 15px 0;
+            animation: fadeIn 2s ease-in;
+        }
+
+        /* Cake Emoji (Bounce Animation) */
+        .cake {
+            font-size: 6rem;
+            margin: 20px 0;
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        /* Sub Message (Smaller, Soft Fade) */
+        .sub-message {
+            font-size: 1.3rem;
+            font-style: italic;
+            animation: fadeIn 3s ease-in;
+        }
+
+        /* -------------------------- */
+        /* Keyframe Animations (Core) */
+        /* -------------------------- */
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-20px); }
+        }
+
+        /* Responsive Design (Mobile Friendly) */
+        @media (max-width: 768px) {
+            .birthday-heading { font-size: 3rem; }
+            .wish-message { font-size: 1.4rem; }
+            .cake { font-size: 4rem; }
+            .sub-message { font-size: 1.1rem; }
+        }
+
+        @media (max-width: 480px) {
+            .birthday-heading { font-size: 2.2rem; }
+            .wish-message { font-size: 1.2rem; }
+            .cake { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Confetti Container (JS generates confetti here) -->
+    <div id="confetti"></div>
+
+    <!-- Birthday Wish Content -->
+    <h1 class="birthday-heading">Happy Birthday <span class="name">DEAR FRIEND</span>! 🎉</h1>
+    <p class="wish-message">May your day be filled with joy, laughter, and lots of cake! 🧁</p>
+    <div class="cake">🎂</div>
+    <p class="wish-message">Wishing you all the happiness, love, and success!</p>
+    <p class="sub-message">Another year of awesomeness—cheers to you! 🥂</p>
+
+    <!-- JavaScript for Confetti Effect -->
+    <script>
+        // Confetti Generator - Customizable!
+        const confettiContainer = document.getElementById('confetti');
+        const confettiCount = 200; // Number of confetti pieces
+        const colors = ['#ff6b6b', '#ffe66d', '#4ecdc4', '#45b7d1', '#ff9f43', '#f368e0']; // Confetti colors
+
+        // Create confetti pieces
+        for (let i = 0; i < confettiCount; i++) {
+            const confetti = document.createElement('div');
+            
+            // Random confetti styles
+            confetti.style.width = `${Math.random() * 10 + 5}px`;
+            confetti.style.height = `${Math.random() * 20 + 5}px`;
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.position = 'absolute';
+            confetti.style.top = `${Math.random() * -100}px`; // Start above the page
+            confetti.style.left = `${Math.random() * 100}%`; // Random horizontal position
+            confetti.style.borderRadius = `${Math.random() * 100}%`; // Random shape (circle/square)
+            confetti.style.animation = `fall ${Math.random() * 5 + 5}s linear infinite`;
+            confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confetti.style.opacity = Math.random() * 0.7 + 0.3; // Transparent confetti
+
+            confettiContainer.appendChild(confetti);
+        }
+
+        // Add falling animation for confetti
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                0% { transform: translateY(0) rotate(0deg); }
+                100% { transform: translateY(100vh) rotate(720deg); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
